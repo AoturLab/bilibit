@@ -9,7 +9,11 @@
   "scripts": {
     "test": "node tests/",
     "start": "node bin/bilibit.js",
-    "postinstall": "node scripts/check-deps.js"
+    "postinstall": "node scripts/install-bbdown.js"
+  },
+  "bin": {
+    "bilibit": "./bin/bilibit.js",
+    "bbdown": "./bin/bbdown-wrapper.js"
   },
   "keywords": [
     "bilibili",

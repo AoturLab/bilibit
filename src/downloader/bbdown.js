@@ -13,7 +13,14 @@ const fs = require('fs');
  */
 function isBBDownInstalled() {
   try {
-    execSync('bbdown --version', { stdio: 'ignore' });
+    // 优先使用本地 BBDown
+    const localBBDown = path.join(__dirname, '..', '..', 'node_modules', '.bin', 'BBDown');
+    if (fs.existsSync(localBBDown)) {
+      return true;
+    }
+    
+    // 否则使用全局 BBDown
+    execSync('BBDown --version', { stdio: 'ignore' });
     return true;
   } catch (error) {
     return false;
