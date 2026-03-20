@@ -1,6 +1,6 @@
 {
   "name": "bilibit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "B 站视频下载专家 - Bilibili Video Downloader Expert",
   "main": "src/cli.js",
   "bin": {
