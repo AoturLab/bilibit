@@ -97,7 +97,10 @@ async function handleSearch(keyword, options) {
   console.log(`🔍 Searching for "${keyword}"...\n`);
   
   const result = await search.search(keyword, {
-    page: options.page || 1,
+    page: parseInt(options.page) || 1,
+    pageSize: parseInt(options.limit) || parseInt(options.l) || 20,
+    cookie: options.cookie || options.c
+  });
     pageSize: options.limit || 20
   });
   
@@ -164,8 +167,9 @@ Download Options:
 
 Search Options:
   --page <num>                     Page number (default: 1)
-  --limit <num>                    Results per page (default: 20)
-  --select <num>                   Auto-download Nth result
+  --limit, -l <num>                Results per page (default: 20)
+  --select, -s <num>               Auto-download Nth result
+  --cookie, -c <str>               Bilibili cookie (for better results)
 
 History Options:
   --limit <num>                    Number of records (default: 10)
