@@ -1,8 +1,8 @@
 ---
 name: bilibit
-description: B 站视频下载专家。支持哔哩哔哩视频下载、B 站搜索、弹幕下载、4K/8K 画质。用户说"B 站下载"、"哔哩哔哩"、"bilibili"、"下载视频"、"找 B 站视频"时使用。无需 API Key。
-aliases: [B 站下载，哔哩哔哩下载，bilibili 下载，B 站视频，哔哩哔哩，bilibili,B 站，b 站，视频下载，下载视频，弹幕下载，B 站搜索]
-homepage: https://github.com/chenlong1314/bilibit
+description: B 站视频下载工具。支持哔哩哔哩视频下载、弹幕下载。用户说"B 站下载"、"哔哩哔哩"、"bilibili"、"下载视频"时使用。无需 API Key。
+aliases: [B 站下载，哔哩哔哩下载，bilibili 下载，B 站视频，哔哩哔哩，bilibili,B 站，b 站，视频下载，下载视频，弹幕下载]
+homepage: https://github.com/AoturLab/bilibit
 metadata:
   openclaw:
     emoji: 🎬
