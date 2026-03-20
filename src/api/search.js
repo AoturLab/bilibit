@@ -24,20 +24,13 @@ async function search(keyword, options = {}) {
   url.searchParams.set('pagesize', pageSize.toString());
   
   return new Promise((resolve) => {
-    const headers = {
-      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Referer': 'https://www.bilibili.com',
-      'Accept': 'application/json',
-      'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-      'Origin': 'https://www.bilibili.com'
-    };
-    
-    // 添加 Cookie 支持（如果有）
-    if (options.cookie) {
-      headers['Cookie'] = options.cookie;
-    }
-    
-    const req = https.get(url.toString(), { headers }, (res) => {
+    const req = https.get(url.toString(), {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://www.bilibili.com',
+        'Accept': 'application/json'
+      }
+    }, (res) => {
       let data = '';
       
       res.on('data', (chunk) => {

@@ -169,7 +169,6 @@ Search Options:
   --page <num>                     Page number (default: 1)
   --limit, -l <num>                Results per page (default: 20)
   --select, -s <num>               Auto-download Nth result
-  --cookie, -c <str>               Bilibili cookie (for better results)
 
 History Options:
   --limit <num>                    Number of records (default: 10)
@@ -261,4 +260,6 @@ module.exports = {
   showHelp,
   showVersion,
   main
+};
+main
 };

@@ -82,14 +82,11 @@ bilibit https://b23.tv/BV1xx --danmaku
 # 搜索
 bilibit search "LOL 集锦"
 
-# 使用 Cookie 搜索（更准确）
-bilibit search "LOL" --cookie "SESSDATA=xxx"
-
 # 搜索并下载第 1 个
 bilibit search "LOL" --select 1
 ```
 
-💡 **提示**: 使用 B 站 Cookie 可获得更准确的搜索结果。Cookie 可从浏览器开发者工具获取。
+> **说明**: B 站搜索 API 有一定限制，建议使用精准关键词搜索。
 
 ### 查看历史
 

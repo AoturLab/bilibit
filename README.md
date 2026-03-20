@@ -82,14 +82,11 @@ bilibit https://b23.tv/BV1xx --danmaku
 # Search
 bilibit search "LOL highlights"
 
-# Search with cookie (better results)
-bilibit search "LOL" --cookie "SESSDATA=xxx"
-
 # Search and download 1st result
 bilibit search "LOL" --select 1
 ```
 
-💡 **Tip**: Use Bilibili cookie for better search results. Get cookie from browser developer tools.
+> **Note**: Bilibili search API has limitations. For better search results, try specific keywords.
 
 ### View History
 
