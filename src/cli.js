@@ -98,10 +98,7 @@ async function handleSearch(keyword, options) {
   
   const result = await search.search(keyword, {
     page: parseInt(options.page) || 1,
-    pageSize: parseInt(options.limit) || parseInt(options.l) || 20,
-    cookie: options.cookie || options.c
-  });
-    pageSize: options.limit || 20
+    pageSize: parseInt(options.limit) || 20
   });
   
   if (result.success) {
@@ -260,6 +257,4 @@ module.exports = {
   showHelp,
   showVersion,
   main
-};
-main
 };
