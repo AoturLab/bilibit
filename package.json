@@ -1,16 +1,34 @@
 {
   "name": "bilibit",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
+  "version": "0.1.0",
+  "description": "B 站视频下载专家 - Bilibili Video Downloader Expert",
+  "main": "src/cli.js",
+  "bin": {
+    "bilibit": "./bin/bilibit.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/bilibit.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "keywords": [
+    "bilibili",
+    "video",
+    "downloader",
+    "bbdown",
+    "b 站"
+  ],
+  "author": "bilibit team",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenlong1314/bilibit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chenlong1314/bilibit/issues"
+  },
+  "homepage": "https://github.com/chenlong1314/bilibit#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

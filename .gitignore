@@ -29,8 +29,23 @@ downloads/
 # Config
 config/*.json
 !config/defaults.json.example
+config/cookies.json
+
+# Environment
+.env
+.env.local
+.env.*.local
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+
+# History
+.history.json
+
+# Coverage
+coverage/
+
+# Test
+tests/fixtures/downloads/
