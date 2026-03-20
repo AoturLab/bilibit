@@ -1,19 +1,16 @@
 {
   "name": "bilibit",
-  "version": "0.1.1",
-  "description": "B 站视频下载专家 - Bilibili Video Downloader Expert",
+  "version": "0.1.2",
+  "description": "Simple Bilibili video downloader. Just paste the URL!",
   "main": "src/cli.js",
   "bin": {
-    "bilibit": "./bin/bilibit.js"
+    "bilibit": "./bin/bilibit.js",
+    "bbdown": "./bin/bbdown-wrapper.js"
   },
   "scripts": {
     "test": "node tests/",
     "start": "node bin/bilibit.js",
     "postinstall": "node scripts/install-bbdown.js"
-  },
-  "bin": {
-    "bilibit": "./bin/bilibit.js",
-    "bbdown": "./bin/bbdown-wrapper.js"
   },
   "keywords": [
     "bilibili",
@@ -22,33 +19,22 @@
     "video",
     "downloader",
     "视频下载",
-    "下载视频",
     "弹幕",
     "danmaku",
-    "bbdown",
-    "B 站下载",
-    "哔哩哔哩下载",
-    "B 站视频",
-    "bilibili 下载",
-    "B 站搜索",
-    "视频搜索",
-    "4K",
-    "8K",
-    "clawhub",
-    "openclaw",
-    "skill"
+    "simple",
+    "fast"
   ],
   "author": "bilibit team",
   "license": "MIT",
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chenlong1314/bilibit.git"
+    "url": "https://github.com/AoturLab/bilibit.git"
   },
   "bugs": {
-    "url": "https://github.com/chenlong1314/bilibit/issues"
+    "url": "https://github.com/AoturLab/bilibit/issues"
   },
-  "homepage": "https://github.com/chenlong1314/bilibit#readme",
+  "homepage": "https://github.com/AoturLab/bilibit#readme",
   "engines": {
     "node": ">=14.0.0"
   }

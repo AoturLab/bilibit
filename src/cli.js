@@ -1,10 +1,11 @@
+#!/usr/bin/env node
+
 /**
  * CLI command parser and handler
  * @module cli
  */
 
 const bbdown = require('./downloader/bbdown');
-const search = require('./api/search');
 const history = require('./utils/history');
 
 /**
@@ -65,22 +66,18 @@ async function handleDownload(url, options) {
   
   if (result.success) {
     console.log('\n✅ Download completed!');
+    console.log(`📁 File: ${result.output}`);
     
     // Add to history
     const videoId = bbdown.extractVideoId(url);
     if (videoId) {
-      const videoInfo = await search.getVideoInfo(videoId);
-      if (videoInfo.success) {
-        history.addRecord({
-          videoId,
-          url,
-          title: videoInfo.info.title,
-          author: videoInfo.info.author,
-          downloadPath: result.output,
-          quality: options.quality || options.q,
-          danmaku: options.danmaku || options.d
-        });
-      }
+      history.addRecord({
+        videoId,
+        url,
+        downloadPath: result.output,
+        quality: options.quality || options.q,
+        danmaku: options.danmaku || options.d
+      });
     }
   } else {
     console.error('\n❌ Download failed:', result.error);
@@ -89,57 +86,25 @@ async function handleDownload(url, options) {
 }
 
 /**
- * Handle search command
- * @param {string} keyword - Search keyword
- * @param {Object} options - Search options
- */
-async function handleSearch(keyword, options) {
-  console.log(`🔍 Searching for "${keyword}"...\n`);
-  
-  const result = await search.search(keyword, {
-    page: parseInt(options.page) || 1,
-    pageSize: parseInt(options.limit) || 20
-  });
-  
-  if (result.success) {
-    console.log(`Found ${result.total} results (Page ${result.page})\n`);
-    
-    if (result.results.length === 0) {
-      console.log('No results found.');
-      return;
-    }
-    
-    result.results.forEach((video, index) => {
-      console.log(`${(index + 1).toString().padStart(2)}. ${video.title}`);
-      console.log(`   👤 ${video.author} | ⏱️ ${video.duration} | ▶️ ${formatCount(video.playCount)}`);
-      console.log(`   🔗 ${video.url}\n`);
-    });
-    
-    // Auto-select and download if specified
-    if (options.select) {
-      const selectedIndex = parseInt(options.select, 10) - 1;
-      if (selectedIndex >= 0 && selectedIndex < result.results.length) {
-        const selected = result.results[selectedIndex];
-        console.log(`\n📥 Downloading: ${selected.title}`);
-        await handleDownload(selected.url, options);
-      } else {
-        console.error('Invalid selection number.');
-        process.exit(1);
-      }
-    }
-  } else {
-    console.error('❌ Search failed:', result.error);
-    process.exit(1);
-  }
-}
-
-/**
  * Handle history command
  * @param {Object} options - History options
  */
-function handleHistory(options) {
-  const limit = parseInt(options.limit || 10, 10);
-  history.printHistory(limit);
+async function handleHistory(options) {
+  const limit = parseInt(options.limit) || 10;
+  const records = history.getRecords(limit);
+  
+  if (records.length === 0) {
+    console.log('📭 No download history yet\n');
+    return;
+  }
+  
+  console.log('📋 Download History:\n');
+  records.forEach((record, index) => {
+    console.log(`${index + 1}. ${record.title || 'Unknown'}`);
+    console.log(`   🔗 ${record.url}`);
+    console.log(`   💾 ${record.downloadPath}`);
+    console.log(`   📅 ${new Date(record.downloadAt).toLocaleString()}\n`);
+  });
 }
 
 /**
@@ -147,35 +112,29 @@ function handleHistory(options) {
  */
 function showHelp() {
   console.log(`
-🎬 bilibit - B 站视频下载专家
+🎬 bilibit - Bilibili Video Downloader
 
 Usage:
-  bilibit <url> [options]           Download video
-  bilibit search <keyword> [opts]   Search videos
-  bilibit history [options]         View download history
-  bilibit --help                    Show this help
-  bilibit --version                 Show version
+  bilibit <url> [options]        Download video
+  bilibit history [options]      View download history
+  bilibit --help                 Show this help
+  bilibit --version              Show version
 
 Download Options:
-  -q, --quality <quality>          Video quality (4K, 1080P, etc.)
-  -d, --danmaku                    Download danmaku
-  -c, --cookie <file>              Cookie file path
-  -o, --output <dir>               Output directory
-
-Search Options:
-  --page <num>                     Page number (default: 1)
-  --limit, -l <num>                Results per page (default: 20)
-  --select, -s <num>               Auto-download Nth result
+  -q, --quality <quality>        Video quality (4K, 1080P, etc.)
+  -d, --danmaku                  Download danmaku
+  -c, --cookie <file>            Cookie file path
+  -o, --output <dir>             Output directory
 
 History Options:
-  --limit <num>                    Number of records (default: 10)
+  --limit <num>                  Number of records (default: 10)
 
 Examples:
   bilibit https://b23.tv/BV1xx
   bilibit https://b23.tv/BV1xx --quality 4K --danmaku
-  bilibit search "LOL 集锦"
-  bilibit search "教程" --select 1
   bilibit history --limit 20
+
+💡 Tip: Find video URL in browser, then use bilibit to download.
 `);
 }
 
@@ -188,63 +147,48 @@ function showVersion() {
 }
 
 /**
- * Format count number (e.g., 12345 -> 1.2 万)
- * @param {number} count - Count number
- * @returns {string}
+ * Main entry point
  */
-function formatCount(count) {
-  if (!count) return '0';
+async function main() {
+  const args = process.argv.slice(2);
   
-  const num = typeof count === 'string' ? parseInt(count, 10) : count;
-  
-  if (num >= 10000) {
-    return (num / 10000).toFixed(1) + '万';
-  }
-  
-  return num.toString();
-}
-
-/**
- * Main CLI entry point
- * @param {string[]} args - Command line arguments
- */
-async function main(args) {
-  // Handle --help and --version first (even if first arg)
-  if (args.includes('--help') || args.includes('-h')) {
+  if (args.length === 0) {
     showHelp();
-    return;
-  }
-  
-  if (args.includes('--version') || args.includes('-v')) {
-    showVersion();
-    return;
+    process.exit(0);
   }
   
   const { command, options, positional } = parseArgs(args);
   
-  // No command provided
-  if (!command || command.startsWith('-')) {
-    console.error('❌ Please provide a URL or command. Use --help for usage.');
-    process.exit(1);
-  }
-  
   // Handle commands
   switch (command) {
-    case 'search':
-      if (positional.length === 0) {
-        console.error('❌ Please provide a search keyword.');
-        process.exit(1);
-      }
-      await handleSearch(positional.join(' '), options);
+    case '--help':
+    case '-h':
+      showHelp();
+      break;
+      
+    case '--version':
+    case '-v':
+      showVersion();
       break;
       
     case 'history':
-      handleHistory(options);
+      await handleHistory(options);
       break;
       
     default:
       // Assume it's a URL for download
-      await handleDownload(command, options);
+      if (command.startsWith('http') || command.startsWith('BV')) {
+        await handleDownload(command, options);
+      } else if (positional.length > 0) {
+        await handleDownload(positional[0], options);
+      } else {
+        console.error('❌ Please provide a video URL.\n');
+        console.log('Usage: bilibit <url> [options]\n');
+        console.log('Examples:');
+        console.log('  bilibit https://b23.tv/BV1xx');
+        console.log('  bilibit https://www.bilibili.com/video/BV1xx\n');
+        process.exit(1);
+      }
       break;
   }
 }
@@ -252,9 +196,12 @@ async function main(args) {
 module.exports = {
   parseArgs,
   handleDownload,
-  handleSearch,
   handleHistory,
   showHelp,
   showVersion,
   main
 };
+
+if (require.main === module) {
+  main();
+}
