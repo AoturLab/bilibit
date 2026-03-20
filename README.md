@@ -1,40 +1,52 @@
-# 🎬 bilibit - B 站视频下载专家
+# 🎬 bilibit - Bilibili Video Downloader Expert
 
-> Bilibili Video Downloader Expert
+> Your expert Bilibili video downloader. Search, download, and manage videos with danmaku support.
 
 [![npm version](https://img.shields.io/npm/v/bilibit.svg)](https://www.npmjs.com/package/bilibit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
----
-
-## ✨ 特性
-
-- 🔍 **搜索 + 下载一体化** - 关键词搜索，一键下载
-- 🎯 **专注 B 站** - 深度优化，支持 4K/8K
-- 🎬 **弹幕下载** - 独家功能，弹幕一起保存
-- 🚀 **简单易用** - 一条命令搞定
-- 📦 **npm 包** - 安装简单
-- 📝 **下载历史** - 自动记录下载历史
+**[🇨🇳 中文文档](README_CN.md)**
 
 ---
 
-## 📦 安装
+## ✨ Features
 
-### 方式 1：npm（推荐）
+- 🔍 **Search & Download** - Search by keyword, download in one click
+- 🎯 **Bilibili Expert** - Optimized for Bilibili, supports 4K/8K
+- 🎬 **Danmaku Support** - Download videos with danmaku (XML format)
+- 🚀 **Easy to Use** - One command to get started
+- 📦 **npm Package** - Install with one command
+- 🤖 **AI Friendly** - OpenClaw Skill support
+
+---
+
+## 📦 Installation
+
+### Option 1: npm (Recommended)
 
 ```bash
 npm install -g bilibit
 ```
 
-### 方式 2：本地开发
+### Option 2: clawhub (OpenClaw Skill)
 
 ```bash
-git clone https://github.com/chenlong1314/bilibit.git
+clawhub install bilibit
+```
+
+### Option 3: GitHub
+
+```bash
+git clone https://github.com/AoturLab/bilibit.git
 cd bilibit
 npm install && npm link
 ```
 
-### 系统依赖
+### System Dependencies
+
+**bilibit will auto-install BBDown during installation**
+
+If auto-install fails, manually install:
 
 ```bash
 # macOS
@@ -43,207 +55,143 @@ brew install bbdown ffmpeg
 # Linux
 sudo apt install bbdown ffmpeg
 
-# 验证安装
-bbdown --version
+# Windows
+# Visit https://github.com/nilaoda/BBDown/releases to download
 ```
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 下载视频
+### Download Video
 
 ```bash
-# 直接下载
+# Direct download
 bilibit https://b23.tv/BV1xx
 
-# 指定画质
+# With quality selection
 bilibit https://b23.tv/BV1xx --quality 4K
 
-# 下载带弹幕
+# With danmaku
 bilibit https://b23.tv/BV1xx --danmaku
-
-# 指定输出目录
-bilibit https://b23.tv/BV1xx --output ~/Videos
-
-# 使用 Cookie（大会员画质）
-bilibit https://b23.tv/BV1xx --cookie ~/.bilibit/cookies.json
 ```
 
-### 搜索视频
+### Search Videos
 
 ```bash
-# 搜索
-bilibit search "LOL 集锦"
+# Search
+bilibit search "LOL highlights"
 
-# 搜索并限制结果数
-bilibit search "教程" --limit 10
-
-# 搜索并下载第 1 个结果
+# Search and download 1st result
 bilibit search "LOL" --select 1
-
-# 搜索并下载（带画质选项）
-bilibit search "教程" --select 1 --quality 1080P
 ```
 
-### 查看历史
+### View History
 
 ```bash
-# 查看最近 10 条
 bilibit history
-
-# 查看最近 20 条
-bilibit history --limit 20
-```
-
-### 帮助信息
-
-```bash
-bilibit --help
-bilibit --version
 ```
 
 ---
 
-## 📋 完整命令
+## 💬 Natural Language Examples
 
-| 命令 | 说明 | 参数 |
-|------|------|------|
-| `bilibit <url>` | 下载视频 | `--quality`, `--danmaku`, `--cookie`, `--output` |
-| `bilibit search <关键词>` | 搜索视频 | `--page`, `--limit`, `--select` |
-| `bilibit history` | 查看历史 | `--limit` |
-| `bilibit --help` | 帮助信息 | - |
-| `bilibit --version` | 版本号 | - |
+When using with AI assistants, you can say:
 
-### 下载参数
-
-| 参数 | 简写 | 说明 |
-|------|------|------|
-| `--quality` | `-q` | 画质选择 (4K, 1080P, 720P 等) |
-| `--danmaku` | `-d` | 下载弹幕 |
-| `--cookie` | `-c` | Cookie 文件路径 |
-| `--output` | `-o` | 输出目录 |
-
-### 搜索参数
-
-| 参数 | 说明 |
-|------|------|
-| `--page` | 页码 (默认 1) |
-| `--limit` | 每页结果数 (默认 20) |
-| `--select` | 自动下载第 N 个结果 |
+| You Say | AI Calls |
+|---------|----------|
+| "Download this Bilibili video" + URL | `bilibit <url>` |
+| "Find a 3 minute LOL video" | `bilibit search "LOL" --duration short` |
+| "Download with danmaku" | `bilibit <url> --danmaku` |
+| "Search Bilibili tutorials" | `bilibit search "tutorial" --platform bilibili` |
 
 ---
 
-## 💡 使用示例
+## 📋 Command Reference
 
-### 场景 1：下载单个视频
+| Command | Description | Options |
+|---------|-------------|---------|
+| `bilibit <url>` | Download video | `--quality`, `--danmaku`, `--output` |
+| `bilibit search <keyword>` | Search videos | `--platform`, `--duration`, `--select` |
+| `bilibit history` | View history | `--limit` |
+| `bilibit --help` | Show help | - |
+| `bilibit --version` | Show version | - |
 
-```bash
-bilibit https://www.bilibili.com/video/BV1GJ411x7h7
-```
+### Download Options
 
-### 场景 2：下载 4K 画质带弹幕
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--quality` | `-q` | Video quality (4K, 1080P, etc.) | best |
+| `--danmaku` | `-d` | Download danmaku | false |
+| `--output` | `-o` | Output directory | ./downloads |
+| `--cookie` | `-c` | Cookie file path | - |
 
-```bash
-bilibit https://b23.tv/BV1xx --quality 4K --danmaku
-```
+### Search Options
 
-### 场景 3：搜索并下载
-
-```bash
-# 先搜索看看
-bilibit search "前端教程"
-
-# 直接下载第 1 个结果
-bilibit search "前端教程" --select 1
-```
-
-### 场景 4：大会员视频
-
-```bash
-# 先导出 Cookie（使用浏览器插件）
-# 然后使用 Cookie 下载
-bilibit https://b23.tv/BV1xx --cookie ~/.bilibit/cookies.json
-```
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--page` | - | Page number | 1 |
+| `--limit` | `-l` | Results per page | 20 |
+| `--select` | `-s` | Auto-download Nth result | - |
 
 ---
 
-## 📁 文件结构
+## ⚠️ Notes
 
-```
-bilibit/
-├── bin/
-│   └── bilibit.js          # CLI 入口
-├── src/
-│   ├── cli.js              # 命令解析
-│   ├── api/
-│   │   └── search.js       # B 站搜索 API
-│   ├── downloader/
-│   │   └── bbdown.js       # BBDown 封装
-│   └── utils/
-│       └── history.js      # 下载历史
-├── tests/                  # 测试文件
-├── package.json
-├── README.md
-└── .gitignore
-```
+- **Copyright**: For personal learning and research only
+- **Premium Quality**: Requires Bilibili Premium cookie for 1080P+
+- **Danmaku**: Saved as XML format, can be loaded in players
 
 ---
 
-## ⚠️ 注意事项
-
-- **版权**：仅限个人学习和研究使用，请勿用于商业用途
-- **大会员画质**：需要导入 Cookie 文件
-- **弹幕**：保存为 XML 格式，可用播放器加载
-- **系统依赖**：需要安装 BBDown 和 ffmpeg
-
----
-
-## 🔧 开发
+## 🛠️ Development
 
 ```bash
-# 安装依赖
+# Clone repository
+git clone https://github.com/AoturLab/bilibit.git
+cd bilibit
+
+# Install dependencies
 npm install
 
-# 本地测试
+# Link to global
 npm link
-bilibit --help
 
-# 运行测试
+# Run tests
 npm test
 ```
 
 ---
 
-## 📊 开发进度
+## 📊 Project Status
 
-- [x] 项目初始化
-- [x] BBDown 封装
-- [x] 搜索功能
-- [x] CLI 命令解析
-- [x] 下载历史
-- [x] 文档完善
-- [ ] 单元测试
-- [ ] npm 发布
+- [x] Project initialization
+- [x] SKILL.md (OpenClaw Skill)
+- [x] BBDown integration
+- [x] Search functionality
+- [x] CLI commands
+- [x] Download history
+- [x] Auto-install BBDown
+- [ ] Unit tests
+- [ ] E2E tests
 
 ---
 
-## 🔗 相关链接
+## 🔗 Links
 
-- **GitHub**: https://github.com/chenlong1314/bilibit
+- **GitHub**: https://github.com/AoturLab/bilibit
 - **npm**: https://www.npmjs.com/package/bilibit
-- **BBDown**: https://github.com/nilaoda/BBDown
-- **问题反馈**: https://github.com/chenlong1314/bilibit/issues
+- **Issues**: https://github.com/AoturLab/bilibit/issues
 
 ---
 
-## 📄 许可证
+## 📄 License
 
 MIT License
 
 ---
 
-## 🙏 致谢
+## 🙏 Credits
 
-- [BBDown](https://github.com/nilaoda/BBDown) - B 站命令行下载工具
-- [ffmpeg](https://ffmpeg.org/) - 音视频处理工具
+- [BBDown](https://github.com/nilaoda/BBDown) - Bilibili downloader core
+- [OpenClaw](https://github.com/openclaw/openclaw) - AI Skill framework
