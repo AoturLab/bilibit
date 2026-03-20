@@ -7,8 +7,9 @@
     "bilibit": "./bin/bilibit.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bin/bilibit.js"
+    "test": "node tests/",
+    "start": "node bin/bilibit.js",
+    "postinstall": "node scripts/check-deps.js"
   },
   "keywords": [
     "bilibili",
