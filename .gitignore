@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Downloads
+downloads/
+*.mp4
+*.mp3
+*.flv
+*.xml
+
+# Config
+config/*.json
+!config/defaults.json.example
+
+# Temporary files
+tmp/
+temp/
+*.tmp
