@@ -22,7 +22,9 @@
     "弹幕",
     "danmaku",
     "simple",
-    "fast"
+    "fast",
+    "cli",
+    "pure-download"
   ],
   "author": "bilibit team",
   "license": "MIT",
