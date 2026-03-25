@@ -90,8 +90,8 @@ function downloadBBDown() {
           console.log('✅ BBDown 安装成功:', installPath);
           console.log('🎉 bilibit 已就绪！\n');
           console.log('使用示例：');
-          console.log('  bilibit search "LOL 集锦"');
-          console.log('  bilibit https://b23.tv/BV1xx\n');
+          console.log('  bilibit https://b23.tv/BV1xx');
+          console.log('  bilibit https://b23.tv/BV1xx --quality 1080P --danmaku\n');
           resolve(true);
         });
       }).on('error', (err) => {

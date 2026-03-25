@@ -55,13 +55,39 @@ function parseArgs(args) {
  * @param {Object} options - Download options
  */
 async function handleDownload(url, options) {
-  console.log('🎬 Starting download...\n');
+  const cookieFile = options.cookie || options.c;
+  const outputDir = options.output || options.o || bbdown.getDefaultDownloadDir();
   
+  // Step 1: Fetch video info first
+  console.log('🔍 正在获取视频信息...\n');
+  
+  const infoResult = await bbdown.info(url, { cookieFile });
+  
+  if (!infoResult.success) {
+    console.error('❌ 获取视频信息失败:', infoResult.error);
+    process.exit(1);
+  }
+  
+  const { title, duration, quality, size, hasAudio } = infoResult.info;
+  
+  // Step 2: Display info with pretty formatting
+  console.log('════════════════════════════════════════');
+  console.log(`📺 【${title || '未知标题'}】`);
+  console.log('════════════════════════════════════════');
+  console.log(`⏱️  时长：${duration || '未知'} ${quality ? `| 📐 ${quality}` : ''} ${hasAudio ? '| 🔊 音频' : ''}`);
+  if (size) {
+    console.log(`💾 预计大小：${size}`);
+  }
+  console.log(`📁 保存到：${outputDir}`);
+  console.log('────────────────────────────────────────');
+  console.log('⏳ 开始下载...\n');
+  
+  // Step 3: Download
   const result = await bbdown.download(url, {
     quality: options.quality || options.q,
     danmaku: options.danmaku || options.d,
-    cookieFile: options.cookie || options.c,
-    outputDir: options.output || options.o
+    cookieFile,
+    outputDir
   });
   
   if (result.success) {
@@ -74,6 +100,7 @@ async function handleDownload(url, options) {
       history.addRecord({
         videoId,
         url,
+        title,
         downloadPath: result.output,
         quality: options.quality || options.q,
         danmaku: options.danmaku || options.d
