@@ -98,5 +98,5 @@ bilibit https://b23.tv/BV1xx --danmaku
 
 ## 🔗 相关链接
 
-- GitHub: https://github.com/chenlong1314/bilibit
-- 问题反馈：https://github.com/chenlong1314/bilibit/issues
+- GitHub: https://github.com/AoturLab/bilibit
+- 问题反馈：https://github.com/AoturLab/bilibit/issues
