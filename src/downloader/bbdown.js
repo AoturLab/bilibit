@@ -212,7 +212,7 @@ async function info(url, options = {}) {
       return;
     }
 
-    const args = ['--info', url];
+    const args = ['--only-show-info', url];
 
     if (options.cookieFile) {
       args.push('--cookie', options.cookieFile);
