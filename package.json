@@ -1,6 +1,6 @@
 {
   "name": "bilibit",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Simple Bilibili video downloader. Just paste the URL!",
   "main": "src/cli.js",
   "bin": {
